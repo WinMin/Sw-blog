@@ -1,0 +1,155 @@
+<article id="<%= post.layout %>-<%= post.slug %>" class="article article-type-<%= post.layout %>" itemscope itemprop="blogPost">
+  <%if(post.noDate != "true"){%>
+    <div class="article-meta">
+      <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+    </div>
+  <%}%>
+  <div class="article-inner">
+    <% if (theme.fancybox){ %>
+      <input type="hidden" class="isFancy" />
+    <% } %>
+    <% if (post.link || post.title){ %>
+      <header class="article-header">
+        <%- partial('post/title', {class_name: 'article-title'}) %>
+      </header>
+      <% if (!index){ %>
+      <div class="article-info article-info-post">
+        <%- partial('post/category') %>
+        <%- partial('post/tag') %>
+        <div class="clearfix"></div>
+      </div>
+      <% } %>
+    <% } %>
+    <div class="article-entry" itemprop="articleBody">
+      <% if (index && (post.description || post.excerpt)){ %>
+          <% if (post.description){ %>
+              <%- post.description %>
+          <% } else { %>
+              <%- post.excerpt %>
+          <% } %>
+      <% } else { %>
+          <% if (is_page()){ %>
+              <%- partial('_partial/page') %>
+          <% } %>
+        <%- post.content %>
+      <% } %>
+      <% if ((theme.reward_type === 2 || (theme.reward_type === 1 && post.toc)) && !index){ %>
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p><%= theme.reward_wording1%></p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain"><%= theme.reward_wording2%></div>
+            <div class="shang_payselect">
+              <% if(theme.alipay) {%>
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="<%= theme.alipay%>" alt="支付宝" /></span>
+                </div>
+              <% } %>
+              <% if(theme.weixin) {%>
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="<%= theme.weixin%>" alt="微信" /></span>
+                </div>
+              <% } %>
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      <% } %>
+    </div>
+    <% if (index){ %>
+    <div class="article-info article-info-index">
+      <%if(post.top){%>
+        <div class="article-pop-out tagcloud">
+          <a class="">置顶</a>
+        </div>
+      <% } %>
+      <%- partial('post/category') %>
+      <%- partial('post/tag') %>
+      <% if (index && (post.description || post.excerpt)){ %>
+        <p class="article-more-link">
+          <a <% if (!theme.excerpt_link){ %>class="hidden"<% } %> href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %> >></a>
+        </p>
+      <% } %>
+      <div class="clearfix"></div>
+    </div>
+    <% } %>
+  </div>
+  <% if (!index){ %>
+    <%- partial('post/nav') %>
+  <% } %>
+</article>
+<% if (!index && post.toc != false && !is_page()){ %>
+    <%- partial('_partial/toc') %>
+<% } %>
+<% if (!index && theme.share){ %>
+<%- partial('share/share') %>
+<% } %>
+<% if (!index && theme.baidushare){ %>
+<%- partial('share/baidu-share') %>
+<% } %>
+<% if (!index && theme.showshare){ %>
+<%- partial('share/showshare') %>
+<% } %>
+<% if (!index && post.comments){ %>
+    <% if (theme.duoshuo.on) { %>
+      <%- partial('comments/duoshuo', {
+          key: post.path,
+          title: post.title,
+          url: config.url+url_for(post.path),
+          }) %>
+    <% } else if (theme.youyan.on) { %>
+        <%- partial('comments/youyan') %>
+    <% } else if (theme.gitment.on) { %>
+        <%- partial('comments/gitment', {
+            owner: theme.gitment.owner,
+            repo: theme.gitment.repo,
+            client_id: theme.gitment.client_id,
+            client_secret: theme.gitment.client_secret,
+            desc: post.description,
+            id: post.path
+          }) %>
+    <% } else if (theme.disqus.on) { %>
+        <%- partial('comments/disqus', {
+            shortname: theme.disqus.shortname
+          }) %>
+    <% } else if (config.disqus_shortname) { %>
+        <%- partial('comments/disqus', {
+            shortname: config.disqus_shortname
+          }) %>
+    <% } %>
+<% } %>
+
+<%- partial('_partial/post-nav-button') %>
+
+<% if (!index) { %>
+    <script>
+        <% if (post.fancybox === false){ %>
+            yiliaConfig.fancybox = false;
+        <% } %>
+    </script>
+<% } %>

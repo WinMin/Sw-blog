@@ -1,0 +1,300 @@
+// https://github.com/luuman/hexo-theme-spfk
+
+@import "_partial/customise/code-block"
+
+code-bgc = highlight-background
+code-tag = highlight-yellow 
+code-attr = highlight-blue
+code-word = highlight-foreground
+code-value = highlight-green
+code-number = highlight-aqua
+code-keyword = highlight-purple
+code-comment = highlight-comment
+code-argument = highlight-orange
+
+$code-block
+  background: code-bgc
+  margin: 10px 0
+  padding: 10px 10px
+  overflow: auto
+  color: #4C4C4C
+  line-height: font-size * line-height
+
+$line-numbers
+  color: code-number
+
+.article-entry
+  pre, code
+    font-family: font-mono
+  blockquote
+    background-color: #555
+    padding: 10px 15px
+    word-break: break-word
+    margin: 10px 0px
+    border-left: 4px solid #2f2f2f
+    border-top: 1px dashed #000
+    border-right: 1px dashed #000
+    border-bottom: 1px dashed #000
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+  code
+    background: color-inline-background
+    padding: 0 0.3em
+    border: none
+  pre
+    @extend $code-block
+    color: code-word
+    code
+      background: none
+      text-shadow: none
+      padding: 0
+      color: code-word
+  p
+    code
+      margin: 0 3px
+      border: dashed 1px #000
+      color: color-inline
+      padding: 1px 8px
+      font-size: 90%
+      -webkit-border-radius: 5px
+      border-radius: 5px
+      font-family: Consolas,"Courier New",Courier
+      text-shadow: none
+      background-color: color-inline-background
+      word-wrap: break-word
+      white-space: pre
+    a
+      border: dashed 1px #000
+      padding: 8px 8px
+      border-radius: 5px
+      background-color: #2F2E2E
+      word-wrap: break-word
+      white-space: pre
+      margin: 2px
+      display: inline-block
+    a.fancy-ctn.fancybox::before
+      display: none
+    a::before
+      padding-right: 6px
+      content: "\f0c1"
+      font: normal normal normal 14px/1 FontAwesome
+    a:hover
+      color: #FFF
+  h1
+    font-size: 1.5em
+    margin-top: 30px
+  h2
+    font-size: 1.3em
+    margin-top: 20px
+    font-weight: 300
+    padding-bottom: 5px
+    margin: .5em auto
+    font-weight: 700
+    color: #999
+    padding-bottom: 5px
+    text-align: center
+  h2::after,h2::before
+    content: " —— "
+  h3
+    margin: 0.5em auto
+    color: #fff
+    background: rgba(0, 0, 0, 0.27)
+    border: 1px dashed #020202
+    padding: 0.2em 0.6em
+    font-weight: normal
+    border-radius: 6px
+  h3:hover
+    content: " > "
+  h4
+    margin: 0.5em auto
+    color: #fff
+    background: #5A5A5A
+    border: 1px dashed #020202
+    padding: 0.2em 0.6em
+    font-weight: normal
+    -webkit-border-radius: 6px
+    border-radius: 6px
+  h5
+    margin: 0.5em auto
+    color: #fff
+    background: #8E8D8D
+    border: 1px dashed #020202
+    padding: 0.2em 0.6em
+    font-weight: normal
+    -webkit-border-radius: 6px
+    border-radius: 6px
+  h6
+    margin: 0.5em auto
+    color: #fff
+    border: 1px dashed #020202
+    padding: 0.2em 0.6em
+    font-weight: normal
+    -webkit-border-radius: 6px
+    border-radius: 6px
+  hr
+    background-color: #2f2f2f
+    height: 3px
+    border: 0
+    margin: 10px 0
+  ul
+    li:before
+      content: "\f05d"
+      font: normal normal normal 14px/1 FontAwesome
+      display: inline-block
+      margin: 0 10px
+      line-height: 28px
+      ul
+        li
+          margin-left: 20px
+        li:before
+          content: "\f05d"
+          font: normal normal normal 14px/1 FontAwesome
+          display: inline-block
+          margin: 0 10px
+          line-height: 28px
+  ol
+    li
+      list-style: decimal
+      margin: 0 10px
+
+  li:hover
+    background-color: #2E2E2E
+
+  .highlight::before
+    content: attr(data-lang) " code"
+    display: block
+    background-color: #0083A0
+    margin: 0 -10px 16px -10px
+    padding: 8px 16px
+    color: #EFEFEF
+    font-family: Lato,"Microsoft YaHei",sans-serif
+    font-size: 1.1rem
+    text-shadow: none
+    border-bottom: dashed 1px #000
+    text-transform:capitalize
+  .highlight
+    @extend $code-block
+    border-radius: 4px
+    padding: 0 10px
+    pre
+      border: none
+      margin: 0
+      padding: 0
+    table
+      margin: 20px 0
+      width: auto
+      color: #FFF
+      thead 
+        tr
+          background: #2D2D2D
+        tr:hover
+          background: #151414
+    td
+      border: none
+      padding: 0
+    th
+      border: 1.5px dashed #020202
+    figcaption
+      clearfix()
+      font-size: 0.85em
+      color: highlight-comment
+      line-height: 1em
+      margin-bottom: 1em
+      a
+        float: right
+    .gutter pre
+      @extend $line-numbers
+      text-align: right
+      padding-right: 20px
+      .line
+        text-shadow: none
+    .line
+      font-size: 15px
+      height: 1.5em
+  	  color: highlight-foreground
+  .gist
+    margin: 0 article-padding * -1
+    border-style: solid
+    border-color: color-border
+    border-width: 1px 0
+    background: code-bgc
+    padding: 15px article-padding 15px 0
+    .gist-file
+      border: none
+      font-family: font-mono
+      margin: 0
+      .gist-data
+        background: none
+        border: none
+        .line-numbers
+          @extend $line-numbers
+          background: none
+          border: none
+          padding: 0 20px 0 0
+        .line-data
+          padding: 0 !important
+      .highlight
+        margin: 0
+        padding: 0
+        border: none
+      .gist-meta
+        background: code-bgc
+        color: highlight-comment
+        font: 0.85em font-sans
+        text-shadow: 0 0
+        padding: 0
+        margin-top: 1em
+        margin-left: article-padding
+        a
+          color: color-link
+          font-weight: normal
+          &:hover
+            text-decoration: underline
+
+pre
+  .doctype
+    color: #586e75
+  .tag
+    color: #839496
+  .title
+    color: #66D9EF
+  .string
+    color: #2aa198
+  .attribute
+    color: #b58900
+  .cpp
+  .annotation
+  .command
+    color: color-link
+  .comment
+    color: code-comment
+  .keyword
+    color: code-keyword
+  .function
+  .class .params
+    color: #66D9EF
+  .params
+  .function
+  .css .value
+    color: code-argument
+  .css ~ * .tag
+  .at_rule
+  .preprocessor
+    color: code-tag
+  .built_in
+  .class
+  .css ~ * .class
+  .function
+    color: code-attr
+  .value
+  .number
+    color: #7163D7
+  .id
+  .css ~ * .id
+    color: code-argument
+  .link_label
+  .code
+  .operator
+  .link_url
+    color: color-link
