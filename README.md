@@ -2,7 +2,7 @@
 
 ** Sw'blog Hexo 主题：**魔改自 [Hexo 主题：SPFK](http://luuman.github.io/categories/Hexo/)，
 
-只是对部分代码做了修改，主要是做了主题透明，但是写死了（PS：我真不会前端....这块还是Process写的）
+只是对部分代码做了修改，主要是做了主题透明，但是写死了（PS：我真不会前端....这块还是Processor写的）
 
 另外一方面添加了搜索框站内搜索，主要是对标题的搜索....
 
